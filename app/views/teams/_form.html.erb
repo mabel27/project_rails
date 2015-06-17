@@ -1,0 +1,31 @@
+<%= nested_form_for(@team) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+<fieldset id="users">
+  <%= f.fields_for :users do |users_form| %>
+      <div class="field">
+        <%= users_form.label :email, 'User Email' %><br>
+        <%= users_form.text_field :email %>
+      </div>
+  <%= users_form.link_to_remove "Delete User" %>
+    <% end %>
+  <p><%= f.link_to_add "Add User", :users %></p>
+  </fieldset>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
